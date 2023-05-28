@@ -1,12 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import TextBottom from '../Text/TextBottom';
+
 const Basket = () => {
   const services = useSelector((state) => state.basket);
-  useEffect(() => {}, [services]);
+  const [discount, setDiscount] = useState(false);
+  // const [sum,setSum]= useState(0)
+  let sum = services.reduce(
+    (acc, item) =>
+      acc + (item.value > 0 ? item.price * item.value : item.price),
+    0
+  );
+
+  const discountHandler = (val) => {
+    const discountedSum = sum - (sum / 100) * val;
+    sum = discountedSum;
+  };
   return (
-    <div className='w-[20%] h-full basket'>
-      <div className='px-2 py-6 fixed basket right-0 bottom-0 top-24 flex w-[16%] flex-col justify-between basket-gradient print:w-full print:justify-start'>
+    <div className='w-[20%] h-full basket print:w-auto print:h-auto'>
+      <div className='px-2 py-6 fixed basket right-0 bottom-0 top-24 flex w-[16%] flex-col justify-between basket-gradient print:w-full print:justify-start print:static print:px-2'>
         <p className='text-xl font-bold print:hidden'>Выбранные услуги:</p>
         <p className='text-xl font-bold print:block hidden mb-8 text-center'>
           Предварительный план лечения и стоимость услуг в рублях:
@@ -15,12 +27,12 @@ const Basket = () => {
           <ol className='px-0 flex flex-col gap-2 max-w-7xl print:gap-2.5'>
             {services.map((item, index) => (
               <li
-                className='flex gap-2 px-1 print:px-0 print:w-full print:justify-between'
+                className='flex gap-2 px-1 print:px-0 print:w-full print:justify-between print:border-b-2'
                 key={index}
               >
                 <p className='w-[80%]'> {item.description}</p>
                 <p className=' shrink-0 w-12 text-bold'>{item.value} ед.</p>
-                <p className=' shrink-0 w-[18%] text-bold hidden print:block'>
+                <p className=' shrink-0 w-[18%] text-bold hidden print:block text-end'>
                   Цена: {item.price} руб.
                 </p>
               </li>
@@ -28,13 +40,7 @@ const Basket = () => {
           </ol>
         </div>
         <p className='text-xl font-bold print:text-end'>
-          Общая сумма:{' '}
-          {services.reduce(
-            (acc, item) =>
-              acc + (item.value > 0 ? item.price * item.value : item.price),
-            0
-          )}{' '}
-          руб.
+          Общая сумма: {sum} руб.
         </p>
         <div className='flex flex-col gap-2 print-hidden print:hidden'>
           <button
@@ -44,9 +50,30 @@ const Basket = () => {
           >
             Печать
           </button>
-          <button type='button' className='btn btn-info '>
-            Скидка
-          </button>
+          <div className='w-full'>
+            <button
+              type='button'
+              onClick={() => setDiscount(!discount)}
+              className='btn btn-info w-full'
+            >
+              Скидка
+            </button>
+            {discount && (
+              <div className='mt-2 flex gap-2'>
+                <button
+                  value='1'
+                  className='btn btn-outline-success'
+                  onClick={(e) => discountHandler(e.target.value)}
+                >
+                  1%
+                </button>
+                <button value='2' className='btn btn-outline-success'>
+                  2%
+                </button>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={() => {
               window.location.reload();

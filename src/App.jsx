@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Sidebar from './components/Sidebar/Sidebar';
 import Header from './components/Header/Header';
-
 import Box from './components/Box/Box';
 import Basket from './components/Basket/Basket';
 
