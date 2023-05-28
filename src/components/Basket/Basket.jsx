@@ -78,6 +78,7 @@ const Basket = () => {
                   className='input-group-text w-full'
                   value={discount}
                   min={0}
+                  max={50}
                   onChange={(e) => {
                     inputOnChangeHandler(e.target.value);
                   }}
