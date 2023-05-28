@@ -4,18 +4,25 @@ import TextBottom from '../Text/TextBottom';
 
 const Basket = () => {
   const services = useSelector((state) => state.basket);
-  const [discount, setDiscount] = useState(false);
-  // const [sum,setSum]= useState(0)
-  let sum = services.reduce(
-    (acc, item) =>
-      acc + (item.value > 0 ? item.price * item.value : item.price),
-    0
-  );
+  const [discount, setDiscount] = useState('');
+  const [totalAmount, setTotalAmount] = useState(0);
 
-  const discountHandler = (val) => {
-    const discountedSum = sum - (sum / 100) * val;
-    sum = discountedSum;
+  useEffect(() => {
+    totalAmountHandler();
+  }, [services, discount]);
+
+  const inputOnChangeHandler = (value) => {
+    setDiscount(value);
   };
+  const totalAmountHandler = () => {
+    let sum = services.reduce((acc, item) => acc + item.value * item.price, 0);
+
+    if (discount) {
+      sum = sum - (sum / 100) * discount;
+    }
+    setTotalAmount(sum);
+  };
+
   return (
     <div className='w-[20%] h-full basket print:w-auto print:h-auto'>
       <div className='px-2 py-6 fixed basket right-0 bottom-0 top-24 flex w-[16%] flex-col justify-between basket-gradient print:w-full print:justify-start print:static print:px-2'>
@@ -40,8 +47,14 @@ const Basket = () => {
           </ol>
         </div>
         <p className='text-xl font-bold print:text-end'>
-          Общая сумма: {sum} руб.
+          Общая сумма: {totalAmount} руб.
         </p>
+        {discount && (
+          <p className='text-xl font-bold print:text-end'>
+            Ваша скидка: {discount} %.
+          </p>
+        )}
+
         <div className='flex flex-col gap-2 print-hidden print:hidden'>
           <button
             type='button'
@@ -60,16 +73,15 @@ const Basket = () => {
             </button>
             {discount && (
               <div className='mt-2 flex gap-2'>
-                <button
-                  value='1'
-                  className='btn btn-outline-success'
-                  onClick={(e) => discountHandler(e.target.value)}
-                >
-                  1%
-                </button>
-                <button value='2' className='btn btn-outline-success'>
-                  2%
-                </button>
+                <input
+                  type='number'
+                  className='input-group-text w-full'
+                  value={discount}
+                  min={0}
+                  onChange={(e) => {
+                    inputOnChangeHandler(e.target.value);
+                  }}
+                />
               </div>
             )}
           </div>
