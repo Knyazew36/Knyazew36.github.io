@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url(./libs/normalaize.scss);
+body {
+  height: 100vh;
+  background-color: #161f36;
+}
+
+#root {
+  height: 100%;
+}
+
+ul,
+ol {
+  padding-left: 0;
+}
+
+.gradient-header {
+  background: -webkit-linear-gradient(
+    90deg,
+    #ffffff,
+    #80c5ff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #80c5ff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+$shadow: #fc0;
+
+form {
+  input[type='search'] {
+    border: solid 3px #fff;
+    font-size: 1.5em;
+    height: 2em;
+    padding: 0.5em;
+    transition: all 0.6s ease-in;
+    z-index: 1;
+    width: 100%;
+  }
+}
+
+.basket-gradient {
+  background: -webkit-linear-gradient(
+    90deg,
+    #ffffff,
+    #80c5ff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #80c5ff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 0.25em;
+}
