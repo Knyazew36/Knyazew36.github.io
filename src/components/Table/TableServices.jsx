@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
+
 import Table from 'react-bootstrap/Table';
-import { useDispatch, useSelector } from 'react-redux';
 import Controls from '../Controls/Controls';
 
 const TableServices = ({ data }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {}, []);
   return (
     <div>
       <Table striped bordered hover>
@@ -23,8 +21,7 @@ const TableServices = ({ data }) => {
             <tr
               key={index}
               className={`cursor-pointer px-2 py-2  rounded-xl shadow-xl transition-all text-lg
-                justify-between ${
-                  elem.value > 0 ? 'bg-green-300' : 'bg-yellow-50'
+                justify-between ${elem.value > 0 ? 'bg-green-300' : 'bg-yellow-50'
                 }`}
             >
               <td>{elem.code}</td>

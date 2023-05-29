@@ -1,5 +1,6 @@
 import React from 'react';
-import { updateService, resetService } from '../../serviceSlice/serviceSlice';
+
+import { updateService } from '../../serviceSlice/serviceSlice';
 import { addBasket, removeBasket } from '../../basketSlice/basketSlice';
 import { useDispatch } from 'react-redux';
 
@@ -25,16 +26,8 @@ const Controls = ({ elem }) => {
         }}
         className='btn btn-danger'
       >
-        Удалить
+        Уменьшить
       </button>
-      {/* <button
-        onClick={() => {
-          dispatch(resetService(elem));
-        }}
-        className='btn btn-warning'
-      >
-        Очистить
-      </button> */}
     </div>
   );
 };

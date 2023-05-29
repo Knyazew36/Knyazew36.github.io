@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+
 import { useSelector } from 'react-redux';
+
 import Controls from '../Controls/Controls';
 
 const Search = () => {
   const [inputValue, setInputValue] = useState('');
   const service = useSelector((state) => state.service);
+  const serviceSearchList = [];
 
-  const newService = [];
-  Object.keys(service).map((e) => service[e].map((n) => newService.push(n)));
+  Object.keys(service).map((e) => service[e].map((n) => serviceSearchList.push(n)));
 
   const searchInputHandler = (value) => {
     setInputValue(value);
-    newService.filter((el) => el.description);
+    serviceSearchList.filter((el) => el.description);
   };
+  
   return (
     <div className='relative w-[90%] print:hidden'>
       <form>
@@ -31,7 +34,7 @@ const Search = () => {
             onClick={() => setInputValue('')}
           ></div>
           <div className='absolute bg-[rgb(167,215,255)] w-full left-0 rounded-xl max-h-[70vh] overflow-y-auto px-3 py-3 flex flex-col gap-2 shadow-2xl rounded-t-none'>
-            {newService
+            {serviceSearchList
               .filter((el) => {
                 if (
                   el.description

@@ -2,31 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 @import url(./libs/normalaize.scss);
-body {
-  height: 100vh;
-  background-color: #161f36;
-}
 
-#root {
-  height: 100%;
-}
-
-ul,
-ol {
-  padding-left: 0;
-}
 
 .gradient-header {
-  background: -webkit-linear-gradient(
-    90deg,
-    #ffffff,
-    #80c5ff
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    90deg,
-    #ffffff,
-    #80c5ff
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(90deg,
+      #ffffff,
+      #80c5ff);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(90deg,
+      #ffffff,
+      #80c5ff);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 $shadow: #fc0;
@@ -44,16 +30,23 @@ form {
 }
 
 .basket-gradient {
-  background: -webkit-linear-gradient(
-    90deg,
-    #ffffff,
-    #80c5ff
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    90deg,
-    #ffffff,
-    #80c5ff
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(90deg,
+      #ffffff,
+      #80c5ff);
+  background: linear-gradient(90deg,
+      #ffffff,
+      #80c5ff);
+}
+
+
+@media print {
+  .basket-gradient {
+    background: none;
+  }
+
+  .gradient-header {
+    background: none;
+  }
 }
 
 *::-webkit-scrollbar {

@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { ROUTES } from '../../utils/routes';
 import { Link } from 'react-router-dom';
+
 import Search from '../Search/Search';
 import TextTop from '../Text/textTop';
+
 const Header = () => {
   return (
     <div className='flex relative h-24 shrink-0'>

@@ -54,7 +54,6 @@ const Basket = () => {
             Ваша скидка: {discount} %.
           </p>
         )}
-
         <div className='flex flex-col gap-2 print-hidden print:hidden'>
           <button
             type='button'
@@ -86,7 +85,6 @@ const Basket = () => {
               </div>
             )}
           </div>
-
           <button
             onClick={() => {
               window.location.reload();
