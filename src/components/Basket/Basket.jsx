@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import TextBottom from '../Text/TextBottom';
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import TextBottom from "../Text/TextBottom";
 
 const Basket = () => {
   const services = useSelector((state) => state.basket);
-  const [discount, setDiscount] = useState('');
+  const [discount, setDiscount] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
+  const [discoutnSum, setDiscountSum] = useState("");
 
   useEffect(() => {
     totalAmountHandler();
@@ -16,65 +17,62 @@ const Basket = () => {
   };
   const totalAmountHandler = () => {
     let sum = services.reduce((acc, item) => acc + item.value * item.price, 0);
-
-    if (discount) {
-      sum = sum - (sum / 100) * discount;
-    }
-    setTotalAmount(sum);
+    setDiscountSum((sum / 100) * discount);
+    setTotalAmount(sum - (sum / 100) * discount);
   };
 
   return (
-    <div className='w-[20%] h-full basket print:w-auto print:h-auto'>
-      <div className='px-2 py-6 fixed basket right-0 bottom-0 top-24 flex w-[16%] flex-col justify-between basket-gradient print:w-full print:justify-start print:static print:px-2'>
-        <p className='text-xl font-bold print:hidden'>Выбранные услуги:</p>
-        <p className='text-xl font-bold print:block hidden mb-8 text-center'>
+    <div className="w-[20%] h-full basket print:w-auto print:h-auto">
+      <div className="px-2 py-6 fixed basket right-0 bottom-0 top-24 flex w-[16%] flex-col justify-between basket-gradient print:w-full print:justify-start print:static print:px-2">
+        <p className="text-xl font-bold print:hidden">Выбранные услуги:</p>
+        <p className="text-xl font-bold print:block hidden mb-8 text-center">
           Предварительный план лечения и стоимость услуг в рублях:
         </p>
-        <div className='overflow-y-auto h-[70%] print:h-auto '>
-          <ol className='px-0 flex flex-col gap-2 max-w-7xl print:gap-2.5'>
+        <div className="overflow-y-auto h-[70%] print:h-auto ">
+          <ol className="px-0 flex flex-col gap-2 max-w-7xl print:gap-2.5">
             {services.map((item, index) => (
               <li
-                className='flex gap-2 px-1 print:px-0 print:w-full print:justify-between print:border-b-2'
+                className="flex gap-2 px-1 print:px-0 print:w-full print:justify-between print:border-b-2"
                 key={index}
               >
-                <p className='w-[80%]'> {item.description}</p>
-                <p className=' shrink-0 w-12 text-bold'>{item.value} ед.</p>
-                <p className=' shrink-0 w-[18%] text-bold hidden print:block text-end'>
+                <p className="w-[80%]"> {item.description}</p>
+                <p className=" shrink-0 w-12 text-bold">{item.value} ед.</p>
+                <p className=" shrink-0 w-[18%] text-bold hidden print:block text-end">
                   Цена: {item.price} руб.
                 </p>
               </li>
             ))}
           </ol>
         </div>
-        <p className='text-xl font-bold print:text-end'>
-          Общая сумма: {totalAmount} руб.
-        </p>
         {discount && (
-          <p className='text-xl font-bold print:text-end'>
-            Ваша скидка: {discount} %.
+          <p className="text-xl font-bold print:text-end">
+            Ваша скидка: {discoutnSum} руб.
           </p>
         )}
-        <div className='flex flex-col gap-2 print-hidden print:hidden'>
+        <p className="text-xl font-bold print:text-end">
+          Общая сумма с учетом скидки: {totalAmount} руб.
+        </p>
+        <div className="flex flex-col gap-2 print-hidden print:hidden">
           <button
-            type='button'
-            className='btn btn-success '
+            type="button"
+            className="btn btn-success "
             onClick={() => window.print()}
           >
             Печать
           </button>
-          <div className='w-full'>
+          <div className="w-full">
             <button
-              type='button'
+              type="button"
               onClick={() => setDiscount(!discount)}
-              className='btn btn-info w-full'
+              className="btn btn-info w-full"
             >
               Скидка
             </button>
             {discount && (
-              <div className='mt-2 flex gap-2'>
+              <div className="mt-2 flex gap-2">
                 <input
-                  type='number'
-                  className='input-group-text w-full'
+                  type="number"
+                  className="input-group-text w-full"
                   value={discount}
                   min={0}
                   max={50}
@@ -89,8 +87,8 @@ const Basket = () => {
             onClick={() => {
               window.location.reload();
             }}
-            className='btn btn-secondary'
-            type='button'
+            className="btn btn-secondary"
+            type="button"
           >
             Очистить полностью
           </button>
