@@ -5,8 +5,10 @@ import TextBottom from "../Text/TextBottom";
 const Basket = () => {
   const services = useSelector((state) => state.basket);
   const [discount, setDiscount] = useState("");
+
   const [totalAmount, setTotalAmount] = useState(0);
   const [discoutnSum, setDiscountSum] = useState("");
+  const [fullPrice, setFullPrice] = useState(0);
 
   useEffect(() => {
     totalAmountHandler();
@@ -17,6 +19,7 @@ const Basket = () => {
   };
   const totalAmountHandler = () => {
     let sum = services.reduce((acc, item) => acc + item.value * item.price, 0);
+    setFullPrice(sum);
     setDiscountSum((sum / 100) * discount);
     setTotalAmount(sum - (sum / 100) * discount);
   };
@@ -45,9 +48,14 @@ const Basket = () => {
           </ol>
         </div>
         {discount && (
-          <p className="text-xl font-bold print:text-end">
-            Ваша скидка: {discoutnSum} руб.
-          </p>
+          <>
+            <p className="text-xl font-bold print:text-end">
+              Первоначальная цена: {fullPrice} руб.
+            </p>
+            <p className="text-xl font-bold print:text-end">
+              Ваша скидка: {discoutnSum} руб.
+            </p>
+          </>
         )}
         <p className="text-xl font-bold print:text-end">
           Общая сумма с учетом скидки: {totalAmount} руб.
